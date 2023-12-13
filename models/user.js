@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const validator = require("validator");
+const bcrypt = require("bcrypt");
 
-const userSchema = new mongoose.Schema({
+const users = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -39,6 +41,25 @@ const userSchema = new mongoose.Schema({
 
 });
 
-const User = mongoose.model('User', userSchema);
+users.statics.findUserByCredentials = function findUserByCredentials(
+  email,
+  password,
+) {
+  return this.findOne({ email })
+    .select("+password")
+    .then((data) => {
+      if (!data) {
+        return Promise.reject(new Error("Incorrect email or password"));
+      }
 
-module.exports = User;
+      return bcrypt.compare(password, data.password).then((matched) => {
+        if (!matched) {
+          return Promise.reject(new Error("Incorrect email or password"));
+        }
+
+        return data;
+      });
+    });
+};
+
+module.exports = mongoose.model("users",users)
