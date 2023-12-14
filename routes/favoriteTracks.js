@@ -15,7 +15,7 @@ const {validateFavoriteTrackBody, validateId} = require("../middleware/validatio
 router.post("/", authorize, validateFavoriteTrackBody, createFavoriteTrack);
 
 // Read
-router.get("/", getFavoriteTracks);
+router.get("/",authorize, getFavoriteTracks);
 
 // Delete
 router.delete("/:itemId", authorize, validateId, deleteFavoriteTrack);

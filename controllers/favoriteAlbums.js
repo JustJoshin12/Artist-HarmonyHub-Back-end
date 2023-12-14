@@ -20,7 +20,9 @@ const createFavoriteAlbum = (req, res, next) => {
 };
 
 const getFavoriteAlbums = (req, res, next) => {
-  FavoriteAlbum.find({})
+  const userId = req.user._id;
+
+  FavoriteAlbum.find({ owner: userId })
     .then((items) => res.send(items))
     .catch((err) => {
       next(err);
@@ -54,4 +56,4 @@ module.exports = {
   createFavoriteAlbum,
   getFavoriteAlbums,
   deleteFavoriteAlbum,
-}
+};

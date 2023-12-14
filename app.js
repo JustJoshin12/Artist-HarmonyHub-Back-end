@@ -2,10 +2,10 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+
 const { errors } = require("celebrate");
 const errorHandler = require("./middleware/error-handler");
-const { requestLogger, errorLogger } = require("./middleware/logger")
-
+const { requestLogger, errorLogger } = require("./middleware/logger");
 const app = express();
 
 const { PORT = 3001 } = process.env;
@@ -17,12 +17,6 @@ mongoose.connect(
   },
   (e) => console.log("DB error", e),
 );
-app.use((req, res, next) => {
-  req.user = {
-    _id: '5d8b8592978f8bd833ca8133'// paste the _id of the test user created in the previous step
-  };
-  next();
-});
 
 const routes = require("./routes");
 

@@ -14,7 +14,7 @@ const {validateFavoriteAlbumBody, validateId} = require("../middleware/validatio
 router.post("/", authorize, validateFavoriteAlbumBody, createFavoriteAlbum);
 
 // Read
-router.get("/", getFavoriteAlbums);
+router.get("/", authorize, getFavoriteAlbums);
 
 // Delete
 router.delete("/:itemId", authorize, validateId, deleteFavoriteAlbum);

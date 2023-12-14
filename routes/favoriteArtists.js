@@ -14,7 +14,7 @@ const {validateFavoriteArtistBody, validateId} = require("../middleware/validati
 router.post("/", authorize, validateFavoriteArtistBody, createFavoriteArtist);
 
 // Read
-router.get("/", getFavoriteArtists);
+router.get("/", authorize, getFavoriteArtists);
 
 // Delete
 router.delete("/:itemId", authorize, validateId, deleteFavoriteArtist);

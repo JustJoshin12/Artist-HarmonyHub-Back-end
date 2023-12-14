@@ -12,7 +12,7 @@ const {validateLoginAuthentication, validateUserInfoBody} = require("../middlewa
 router.use("/users", authorize, users);
 router.use("/favoriteArtists", favoriteArtist);
 router.use("/favoriteTracks", favoriteTrack);
-router.use("./favoriteAlbums", favoriteAlbum);
+router.use("/favoriteAlbums", favoriteAlbum);
 
 router.post("/signin",validateLoginAuthentication, login)
 router.post("/signup", validateUserInfoBody, createUser);
