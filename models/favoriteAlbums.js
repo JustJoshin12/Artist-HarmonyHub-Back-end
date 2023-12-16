@@ -31,7 +31,7 @@ const FavoriteAlbum = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  total_tracks: {
+  totalTracks: {
     type: Number,
     min: 0,
     max: 1000,

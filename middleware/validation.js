@@ -59,17 +59,23 @@ const validateFavoriteAlbumBody = celebrate({
       "string.empty": 'The "imageUrl" field must be filled in',
       "string.uri": 'the "imageUrl" field must be a valid url',
     }),
-    artist: Joi.string().required().min(2).max(30).messages({
+    artist: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
       "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
+    }),
+    totalTracks: Joi.number().required().min(2).messages({
+      "number.base": 'The "name" field must be a number',
+      "number.empty": 'The "name" field must be filled in',
+      "number.min": 'The minimum value of the "name" field is 2',
+      "number.max": 'The maximum value of the "name" field is 30',
     }),
   }),
 });
 
 const validateUserInfoBody = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30).messages({
+    name: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
       "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
@@ -107,7 +113,7 @@ const validateLoginAuthentication = celebrate({
 
 const validateUpdateUser = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30).messages({
+    name: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
       "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
@@ -116,7 +122,7 @@ const validateUpdateUser = celebrate({
       "string.empty": 'The "imageUrl" field must be filled in',
       "string.uri": 'the "imageUrl" field must be a valid url',
     }),
-    userName: Joi.string().required().min(2).max(30).messages({
+    userName: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
       "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
