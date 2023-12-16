@@ -11,10 +11,11 @@ const limiter = require("./middleware/rate-limiter");
 const app = express();
 
 const { PORT = 3001 } = process.env;
-const dbURL = process.env.DATABASE_URL
+const dbURL = process.env.DATABASE_URL;
+
 
 mongoose.connect(
-  dbURL,
+  "mongodb://127.0.0.1:27017/ArtistHarmonyHub_db",
   (r) => {
     console.log("connected to DB", r);
   },
