@@ -1,20 +1,31 @@
 const BadRequestError = require("../errors/bad-request-error");
 const NotFoundError = require("../errors/not-found-error");
 const ForbiddenError = require("../errors/forbidden-error");
+const ConflictError = require("../errors/conflict-error");
 const FavoriteTrack = require("../models/favoriteTracks");
 
 const createFavoriteTrack = (req, res, next) => {
   const { name, image } = req.body;
   const owner = req.user._id;
 
-  FavoriteTrack.create({ name, image, owner })
-    .then((item) => {
-      res.send(item);
+  FavoriteTrack.findOne({ name, owner })
+    .then((existingTrack) => {
+      if (existingTrack) {
+        next(new ConflictError("Track already in favorites"));
+      } else {
+        FavoriteTrack.create({ name, image, owner })
+          .then((item) => {
+            res.send(item);
+          })
+          .catch((err) => {
+            if (err.name === "ValidationError") {
+              next(new BadRequestError("Bad Request"));
+            }
+            next(err);
+          });
+      }
     })
     .catch((err) => {
-      if (err.name === "ValidationError") {
-        next(new BadRequestError("Bad Request"));
-      }
       next(err);
     });
 };

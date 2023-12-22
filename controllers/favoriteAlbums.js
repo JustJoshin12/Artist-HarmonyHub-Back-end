@@ -1,20 +1,31 @@
 const BadRequestError = require("../errors/bad-request-error");
 const NotFoundError = require("../errors/not-found-error");
 const ForbiddenError = require("../errors/forbidden-error");
+const ConflictError = require("../errors/conflict-error");
 const FavoriteAlbum = require("../models/favoriteAlbums");
 
 const createFavoriteAlbum = (req, res, next) => {
   const { name, image, artist, totalTracks } = req.body;
   const owner = req.user._id;
 
-  FavoriteAlbum.create({ name, image, artist, totalTracks, owner })
-    .then((item) => {
-      res.send(item);
+  FavoriteAlbum.findOne({ name, owner })
+    .then((existingAlbum) => {
+      if (existingAlbum) {
+        next(new ConflictError("Album already in favorites"));
+      } else {
+        FavoriteAlbum.create({ name, image, artist, totalTracks, owner })
+          .then((item) => {
+            res.send(item);
+          })
+          .catch((err) => {
+            if (err.name === "ValidationError") {
+              next(new BadRequestError("Bad Request"));
+            }
+            next(err);
+          });
+      }
     })
     .catch((err) => {
-      if (err.name === "ValidationError") {
-        next(new BadRequestError("Bad Request"));
-      }
       next(err);
     });
 };
