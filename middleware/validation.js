@@ -52,7 +52,6 @@ const validateFavoriteAlbumBody = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
-      "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
     }),
     image: Joi.string().required().custom(validateURL).messages({
@@ -61,14 +60,11 @@ const validateFavoriteAlbumBody = celebrate({
     }),
     artist: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
-      "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
     }),
-    totalTracks: Joi.number().required().min(2).messages({
+    totalTracks: Joi.number().required().messages({
       "number.base": 'The "name" field must be a number',
       "number.empty": 'The "name" field must be filled in',
-      "number.min": 'The minimum value of the "name" field is 2',
-      "number.max": 'The maximum value of the "name" field is 30',
     }),
   }),
 });
@@ -77,7 +73,6 @@ const validateUserInfoBody = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
-      "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
     }),
     avatar: Joi.string().required().custom(validateURL).messages({
@@ -115,7 +110,6 @@ const validateUpdateUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
-      "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
     }),
     avatar: Joi.string().custom(validateURL).messages({
@@ -124,7 +118,6 @@ const validateUpdateUser = celebrate({
     }),
     userName: Joi.string().required().min(2).messages({
       "string.min": 'The minimum length of the "name" field is 2',
-      "string.max": 'The maximum length of the "name" field is 30',
       "string.empty": 'The "name" field must be filled in',
     }),
   }),

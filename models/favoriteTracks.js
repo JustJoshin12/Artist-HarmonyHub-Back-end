@@ -6,7 +6,6 @@ const FavoriteTrack = new mongoose.Schema({
     type: String,
     required: true,
     minLength: 2,
-    maxLength: 30,
   },
   image: {
     type: String,

@@ -6,7 +6,6 @@ const FavoriteAlbum = new mongoose.Schema({
     type: String,
     required: true,
     minLength: 2,
-    maxLength: 30,
   },
   artist: {
     type: String,
