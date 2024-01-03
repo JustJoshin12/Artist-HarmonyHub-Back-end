@@ -3,7 +3,7 @@ const validator = require("validator");
 
 const validateId = celebrate({
   params: Joi.object().keys({
-    itemId: Joi.string().hex().length(24),
+    name: Joi.string().required(),
   }),
 });
 
@@ -30,6 +30,9 @@ const validateFavoriteArtistBody = celebrate({
       "number.empty": 'The "name" field must be filled in',
       "number.min": 'The minimum value of the "name" field is 2',
       "number.max": 'The maximum value of the "name" field is 30',
+    }),
+    spotifyId: Joi.string().required().min(4).messages({
+      "string.min": 'The minimum length of the "name" field is 4',
     }),
   }),
 });

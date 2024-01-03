@@ -29,7 +29,12 @@ const FavoriteArtist = new mongoose.Schema({
     type: Number,
     min: 0,
     max: 100000000000000000000
-  }
+  },
+  spotifyId: {
+    type: String,
+    required: true,
+    minLength: 4,
+  },
 });
 
 

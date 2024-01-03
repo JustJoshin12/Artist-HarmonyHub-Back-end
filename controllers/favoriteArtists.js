@@ -5,14 +5,14 @@ const ConflictError = require("../errors/conflict-error");
 const FavoriteArtist = require("../models/favoriteArtists");
 
 const createFavoriteArtist = (req, res, next) => {
-  const { name, image, followers } = req.body;
+  const { name, image, followers, spotifyId } = req.body;
   const owner = req.user._id;
 
   FavoriteArtist.findOne({ name, owner }).then((existingArtist) => {
     if (existingArtist) {
       next(new ConflictError("Artist already in favorites"));
     } else {
-      FavoriteArtist.create({ name, image, followers, owner })
+      FavoriteArtist.create({ name, image, followers, spotifyId, owner })
         .then((item) => {
           res.send(item);
         })
@@ -37,10 +37,11 @@ const getFavoriteArtists = (req, res, next) => {
 };
 
 const deleteFavoriteArtist = (req, res, next) => {
-  const { itemId } = req.params;
+  const { name } = req.params;
+  const decodedArtistName = decodeURIComponent(name);
   const userId = req.user._id;
 
-  FavoriteArtist.findById(itemId)
+  FavoriteArtist.findOne( {name: decodedArtistName} )
     .orFail()
     .then((item) => {
       if (userId !== item.owner.toString()) {

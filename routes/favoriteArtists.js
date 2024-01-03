@@ -17,7 +17,7 @@ router.post("/", authorize, validateFavoriteArtistBody, createFavoriteArtist);
 router.get("/", authorize, getFavoriteArtists);
 
 // Delete
-router.delete("/:itemId", authorize, validateId, deleteFavoriteArtist);
+router.delete("/:name", authorize, validateId, deleteFavoriteArtist);
 
 
 module.exports = router;
