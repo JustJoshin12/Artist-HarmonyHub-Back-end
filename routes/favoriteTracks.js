@@ -18,7 +18,7 @@ router.post("/", authorize, validateFavoriteTrackBody, createFavoriteTrack);
 router.get("/",authorize, getFavoriteTracks);
 
 // Delete
-router.delete("/:itemId", authorize, validateId, deleteFavoriteTrack);
+router.delete("/:name", authorize, validateId, deleteFavoriteTrack);
 
 
 module.exports = router;

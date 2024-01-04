@@ -17,7 +17,7 @@ router.post("/", authorize, validateFavoriteAlbumBody, createFavoriteAlbum);
 router.get("/", authorize, getFavoriteAlbums);
 
 // Delete
-router.delete("/:itemId", authorize, validateId, deleteFavoriteAlbum);
+router.delete("/:name", authorize, validateId, deleteFavoriteAlbum);
 
 
 module.exports = router;

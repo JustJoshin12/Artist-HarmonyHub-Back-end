@@ -41,10 +41,10 @@ const getFavoriteTracks = (req, res, next) => {
 };
 
 const deleteFavoriteTrack = (req, res, next) => {
-  const { itemId } = req.params;
+  const { name } = req.params;
   const userId = req.user._id;
 
-  FavoriteTrack.findById(itemId)
+  FavoriteTrack.findOne({name:name})
     .orFail()
     .then((item) => {
       if (userId !== item.owner.toString()) {

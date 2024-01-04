@@ -41,10 +41,10 @@ const getFavoriteAlbums = (req, res, next) => {
 };
 
 const deleteFavoriteAlbum = (req, res, next) => {
-  const { itemId } = req.params;
+  const { name } = req.params;
   const userId = req.user._id;
 
-  FavoriteAlbum.findById(itemId)
+  FavoriteAlbum.findOne({name:name})
     .orFail()
     .then((item) => {
       if (userId !== item.owner.toString()) {
